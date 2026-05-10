@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EN Silver Care - Specializing in Senior Hygiene</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        [x-cloak] { display: none !important; }
+    </style>
+</head>
+<body x-data="app()" class="bg-white text-gray-900">
+
+    <header class="fixed w-full top-0 bg-white/80 backdrop-blur-md z-50 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-[#db7536] rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg">EN</div>
+                <span class="font-bold text-xl tracking-tight">Silver Care</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="bg-gray-100 p-1 rounded-full flex">
+                    <button @click="setLang('EN')" :class="lang === 'EN' ? 'bg-white shadow-sm text-[#db7536]' : 'text-gray-500'" class="px-4 py-1.5 rounded-full text-sm font-bold transition-all">EN</button>
+                    <button @click="setLang('JP')" :class="lang === 'JP' ? 'bg-white shadow-sm text-[#db7536]' : 'text-gray-500'" class="px-4 py-1.5 rounded-full text-sm font-bold transition-all">JP</button>
+                    <button @click="setLang('KR')" :class="lang === 'KR' ? 'bg-white shadow-sm text-[#db7536]' : 'text-gray-500'" class="px-4 py-1.5 rounded-full text-sm font-bold transition-all">KR</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="pt-40 pb-20 px-6">
+        <div class="max-w-7xl mx-auto text-center">
+            <h1 class="text-5xl md:text-7xl font-bold leading-[1.1] mb-8 tracking-tighter" x-text="t().hero.title"></h1>
+            <p class="text-xl md:text-2xl text-gray-500 max-w-2xl mx-auto leading-relaxed" x-text="t().hero.subtitle"></p>
+        </div>
+    </section>
+
+    <section id="products" class="py-20 px-6 bg-gray-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-3 gap-8">
+                <template x-for="product in products" :key="product.id">
+                    <div class="bg-white rounded-[40px] overflow-hidden shadow-xl border border-gray-100">
+                        <div class="aspect-[3/4] relative overflow-hidden bg-gray-200">
+                            <img :src="product.image" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-8 text-center">
+                            <h3 class="text-2xl font-bold mb-4" x-text="product.name[lang]"></h3>
+                            <button class="w-full py-4 bg-gray-900 text-white rounded-2xl font-bold hover:bg-[#db7536] transition-colors" x-text="t().buttons.details"></button>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white py-12 px-6 text-center text-sm opacity-50">
+        &copy; 2026 EN Silver Care. All rights reserved.
+    </footer>
+
+    <script>
+        function app() {
+            return {
+                lang: 'KR',
+                translations: {
+                    EN: {
+                        hero: { title: "Innovative Hygiene and Odor Care for Seniors", subtitle: "EN Silver Care provides specialized hygiene solutions." },
+                        buttons: { details: "View Details" }
+                    },
+                    JP: {
+                        hero: { title: "シニアのための革新적인 衛生と脱臭ケア", subtitle: "EN Silver Careは、専門적인 衛生ソリューションを提供します。" },
+                        buttons: { details: "詳細を見る" }
+                    },
+                    KR: {
+                        hero: { title: "시니어를 위한 혁신적인 위생 및 냄새 관리", subtitle: "EN Silver Care는 전문적인 위생 솔루션을 제공합니다." },
+                        buttons: { details: "자세히 보기" }
+                    }
+                },
+                products: [
+                    { id: 'wipes', image: 'https://www.enbcs.kr/theme/enbcs/img/business/new_eq_2.jpg', name: { EN: 'Senior Care Wipes', JP: 'シニアケアシート', KR: '시니어 케어 시트' } },
+                    { id: 'folding', image: 'https://www.enbcs.kr/theme/enbcs/img/business/ts2.jpg', name: { EN: 'Folding Machine', JP: '折り機', KR: '접지기' } },
+                    { id: 'packing', image: 'https://www.enbcs.kr/theme/enbcs/img/business/ts3.jpg', name: { EN: 'Packaging Machine', JP: '包装機', KR: '포장기' } }
+                ],
+                setLang(l) { this.lang = l; },
+                t() { return this.translations[this.lang]; }
+            }
+        }
+        window.onload = () => lucide.createIcons();
+    </script>
+</body>
+</html>
